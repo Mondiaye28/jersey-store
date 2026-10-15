@@ -21,10 +21,14 @@
         <dd>{{ produit.stock }}</dd>
     </dl>
 
-    {# Achat réservé aux utilisateurs connectés.
-       Le bouton n'est pas encore relié au panier : il le sera avec la partie panier. #}
-    {% if is_granted('IS_AUTHENTICATED') %}
-        <button type="button" class="ajouter-panier">{{ 'produit.action.ajouter_panier'|trans }}</button>
+    {# Ajout au panier réservé aux utilisateurs connectés, par POST avec jeton CSRF #}
+    {% if is_granted('ROLE_USER') %}
+        <form method="post" action="{{ path('app_panier_ajouter', {id: produit.id}) }}">
+            <label for="quantite">{{ 'panier.colonne.quantite'|trans }}</label>
+            <input type="number" id="quantite" name="quantite" value="1" min="1" required>
+            <input type="hidden" name="_token" value="{{ csrf_token('ajouter_panier_' ~ produit.id) }}">
+            <button type="submit" class="ajouter-panier">{{ 'produit.action.ajouter_panier'|trans }}</button>
+        </form>
     {% endif %}
 
     {# Gestion du produit réservée aux administrateurs #}

@@ -25,6 +25,7 @@
             <nav>
                 <a href="{{ path('app_home') }}">{{ 'nav.accueil'|trans }}</a>
                 {% if app.user %}
+                    <a href="{{ path('app_panier') }}">{{ 'nav.panier'|trans }}</a>
                     <span>{{ app.user.prenom }} {{ app.user.nom }}</span>
                     <a href="{{ path('app_logout') }}">{{ 'nav.deconnexion'|trans }}</a>
                 {% else %}

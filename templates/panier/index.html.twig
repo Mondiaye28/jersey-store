@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'panier.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'panier.titre'|trans }}</h1>
+
+    {# Seul le panier en cours de l'utilisateur connecté est affiché #}
+    {% if panier is null or panier.contenuPaniers is empty %}
+        <p>{{ 'panier.vide'|trans }}</p>
+    {% else %}
+        <table class="panier">
+            <thead>
+                <tr>
+                    <th>{{ 'panier.colonne.produit'|trans }}</th>
+                    <th>{{ 'panier.colonne.quantite'|trans }}</th>
+                    <th>{{ 'panier.colonne.prix_unitaire'|trans }}</th>
+                    <th>{{ 'panier.colonne.montant'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in panier.contenuPaniers %}
+                    <tr class="ligne-panier">
+                        <td><a href="{{ path('app_produit_show', {id: ligne.produit.id}) }}">{{ ligne.produit.nom }}</a></td>
+                        <td class="quantite">{{ ligne.quantite }}</td>
+                        <td>{{ ligne.produit.prix|format_currency('EUR') }}</td>
+                        {# Montant calculé par PanierService : prix unitaire x quantité #}
+                        <td class="montant">{{ montants[ligne.id]|format_currency('EUR') }}</td>
+                        <td>
+                            {# Suppression par POST avec jeton CSRF propre à la ligne #}
+                            <form method="post" action="{{ path('app_panier_ligne_supprimer', {id: ligne.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('supprimer_ligne_' ~ ligne.id) }}">
+                                <button type="submit">{{ 'panier.action.supprimer'|trans }}</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3">{{ 'panier.total'|trans }}</th>
+                    <td class="total">{{ total|format_currency('EUR') }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        {# L'achat sera implémenté plus tard : le bouton n'est relié à aucune action #}
+        <button type="button" class="acheter">{{ 'panier.action.acheter'|trans }}</button>
+    {% endif %}
+
+    <p><a href="{{ path('app_home') }}">{{ 'produit.retour'|trans }}</a></p>
+{% endblock %}

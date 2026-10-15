@@ -7,6 +7,7 @@ nav:
     connexion: Log in
     inscription: Sign up
     deconnexion: Log out
+    panier: My cart
 
 form:
     nom: Last name
@@ -36,6 +37,12 @@ flash:
         upload_erreur: The photo could not be saved. Please try again.
         csrf_invalide: The request has expired or is invalid. Please try again.
         suppression_impossible: This product cannot be deleted because it is in a cart.
+    panier:
+        ajoute: The product has been added to your cart.
+        stock_insuffisant: Not enough stock to add this quantity to your cart.
+        quantite_invalide: The quantity must be at least 1.
+        csrf_invalide: The request has expired or is invalid. Please try again.
+        ligne_supprimee: The product has been removed from your cart.
 
 home:
     title: Shop
@@ -63,3 +70,16 @@ produit:
     confirmer_suppression: Permanently delete this product?
     retour: Back to the catalogue
     retour_fiche: Back to the product page
+
+panier:
+    titre: My cart
+    vide: Your cart is empty.
+    colonne:
+        produit: Product
+        quantite: Quantity
+        prix_unitaire: Unit price
+        montant: Amount
+    total: Total
+    action:
+        supprimer: Remove
+        acheter: Buy

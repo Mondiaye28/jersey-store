@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Panier;
+use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,14 @@ class PanierRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Panier::class);
+    }
+
+    /**
+     * Panier en cours (pas encore payé) de l'utilisateur, ou null s'il n'en a pas.
+     */
+    public function findEnCours(Utilisateur $utilisateur): ?Panier
+    {
+        return $this->findOneBy(['utilisateur' => $utilisateur, 'etat' => false]);
     }
 
 //    /**

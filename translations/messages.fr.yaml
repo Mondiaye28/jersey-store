@@ -7,6 +7,7 @@ nav:
     connexion: Connexion
     inscription: Inscription
     deconnexion: Déconnexion
+    panier: Mon panier
 
 form:
     nom: Nom
@@ -36,6 +37,12 @@ flash:
         upload_erreur: La photo n'a pas pu être enregistrée. Réessayez.
         csrf_invalide: La demande a expiré ou n'est pas valide. Réessayez.
         suppression_impossible: Ce produit ne peut pas être supprimé car il figure dans un panier.
+    panier:
+        ajoute: Le produit a été ajouté à votre panier.
+        stock_insuffisant: Stock insuffisant pour ajouter cette quantité à votre panier.
+        quantite_invalide: La quantité doit être d'au moins 1.
+        csrf_invalide: La demande a expiré ou n'est pas valide. Réessayez.
+        ligne_supprimee: Le produit a été retiré de votre panier.
 
 home:
     title: Boutique
@@ -63,3 +70,16 @@ produit:
     confirmer_suppression: Supprimer définitivement ce produit ?
     retour: Retour au catalogue
     retour_fiche: Retour à la fiche produit
+
+panier:
+    titre: Mon panier
+    vide: Votre panier est vide.
+    colonne:
+        produit: Produit
+        quantite: Quantité
+        prix_unitaire: Prix unitaire
+        montant: Montant
+    total: Total
+    action:
+        supprimer: Retirer
+        acheter: Acheter
