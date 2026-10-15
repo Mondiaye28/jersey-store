@@ -18,3 +18,8 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> app ###
+# Photos envoyées par les administrateurs (contenu, pas du code)
+/public/uploads/
+###< app ###

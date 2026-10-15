@@ -28,7 +28,38 @@ flash:
     register:
         success: Your account has been created. You can now log in.
         error: The form contains errors. Check the fields in red.
+    produit:
+        cree: The product has been created.
+        modifie: The product has been updated.
+        supprime: The product has been deleted.
+        formulaire_invalide: The product was not saved. Check the fields in red.
+        upload_erreur: The photo could not be saved. Please try again.
+        csrf_invalide: The request has expired or is invalid. Please try again.
+        suppression_impossible: This product cannot be deleted because it is in a cart.
 
 home:
     title: Shop
-    placeholder: The product list will appear here.
+    aucun_produit: No products yet.
+
+produit:
+    champ:
+        nom: Name
+        description: Description
+        prix: Price
+        stock: Stock
+        photo: Photo
+        photo_aide: JPEG, PNG or WebP, 2 MB max. Leave empty to keep the current photo.
+    action:
+        ajouter: Add a product
+        modifier: Edit
+        supprimer: Delete
+        enregistrer: Save
+        ajouter_panier: Add to cart
+    titre:
+        nouveau: New product
+        modifier: Edit product
+    sans_photo: No photo for this product.
+    photo_actuelle: Current photo
+    confirmer_suppression: Permanently delete this product?
+    retour: Back to the catalogue
+    retour_fiche: Back to the product page

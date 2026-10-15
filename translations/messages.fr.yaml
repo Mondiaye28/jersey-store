@@ -28,7 +28,38 @@ flash:
     register:
         success: Votre compte a été créé. Vous pouvez maintenant vous connecter.
         error: Le formulaire contient des erreurs. Vérifiez les champs en rouge.
+    produit:
+        cree: Le produit a été créé.
+        modifie: Le produit a été modifié.
+        supprime: Le produit a été supprimé.
+        formulaire_invalide: Le produit n'a pas été enregistré. Vérifiez les champs en rouge.
+        upload_erreur: La photo n'a pas pu être enregistrée. Réessayez.
+        csrf_invalide: La demande a expiré ou n'est pas valide. Réessayez.
+        suppression_impossible: Ce produit ne peut pas être supprimé car il figure dans un panier.
 
 home:
     title: Boutique
-    placeholder: La liste des produits arrivera ici.
+    aucun_produit: Aucun produit pour le moment.
+
+produit:
+    champ:
+        nom: Nom
+        description: Description
+        prix: Prix
+        stock: Stock
+        photo: Photo
+        photo_aide: JPEG, PNG ou WebP, 2 Mo maximum. Laissez vide pour garder la photo actuelle.
+    action:
+        ajouter: Ajouter un produit
+        modifier: Modifier
+        supprimer: Supprimer
+        enregistrer: Enregistrer
+        ajouter_panier: Ajouter au panier
+    titre:
+        nouveau: Nouveau produit
+        modifier: Modifier le produit
+    sans_photo: Pas de photo pour ce produit.
+    photo_actuelle: Photo actuelle
+    confirmer_suppression: Supprimer définitivement ce produit ?
+    retour: Retour au catalogue
+    retour_fiche: Retour à la fiche produit

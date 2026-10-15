@@ -4,5 +4,28 @@
 
 {% block body %}
     <h1>{{ 'home.title'|trans }}</h1>
-    <p>{{ 'home.placeholder'|trans }}</p>
+
+    {# Bouton de création réservé aux administrateurs #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <p><a href="{{ path('app_produit_new') }}">{{ 'produit.action.ajouter'|trans }}</a></p>
+    {% endif %}
+
+    {% if produits is empty %}
+        <p>{{ 'home.aucun_produit'|trans }}</p>
+    {% else %}
+        <ul class="catalogue">
+            {% for produit in produits %}
+                <li>
+                    {# Chaque produit mène à sa fiche #}
+                    <a href="{{ path('app_produit_show', {id: produit.id}) }}">
+                        {% if produit.photo %}
+                            <img src="{{ asset('uploads/produits/' ~ produit.photo) }}" alt="{{ produit.nom }}" width="200">
+                        {% endif %}
+                        <span>{{ produit.nom }}</span>
+                    </a>
+                    <span>{{ produit.prix|format_currency('EUR') }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

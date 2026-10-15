@@ -1,0 +1,10 @@
+{# Formulaire partagé par la création et la modification.
+   form_start ajoute enctype="multipart/form-data" car le formulaire contient un champ fichier. #}
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.prix) }}
+    {{ form_row(form.stock) }}
+    {{ form_row(form.photo) }}
+    <button type="submit">{{ 'produit.action.enregistrer'|trans }}</button>
+{{ form_end(form) }}

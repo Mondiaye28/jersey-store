@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'produit.titre.modifier'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'produit.titre.modifier'|trans }}</h1>
+
+    {# Photo actuelle : elle est conservée si aucun nouveau fichier n'est envoyé #}
+    {% if produit.photo %}
+        <p>{{ 'produit.photo_actuelle'|trans }}</p>
+        <img src="{{ asset('uploads/produits/' ~ produit.photo) }}" alt="{{ produit.nom }}" width="200">
+    {% endif %}
+
+    {{ include('produit/_form.html.twig') }}
+
+    <p><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ 'produit.retour_fiche'|trans }}</a></p>
+{% endblock %}

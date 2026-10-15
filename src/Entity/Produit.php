@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -14,18 +15,26 @@ class Produit
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
     #[ORM\Column]
     private ?float $prix = null;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
     #[ORM\Column]
     private ?int $stock = null;
 
+    // Nom du fichier enregistré dans public/uploads/produits/ (la photo est facultative)
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
@@ -39,7 +48,9 @@ class Produit
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    // Les setters acceptent null : un champ vide du formulaire est alors refusé
+    // par la validation (NotBlank / NotNull) au lieu de provoquer une erreur de type
+    public function setNom(?string $nom): static
     {
         $this->nom = $nom;
 
@@ -51,7 +62,7 @@ class Produit
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -63,7 +74,7 @@ class Produit
         return $this->prix;
     }
 
-    public function setPrix(float $prix): static
+    public function setPrix(?float $prix): static
     {
         $this->prix = $prix;
 
@@ -75,7 +86,7 @@ class Produit
         return $this->stock;
     }
 
-    public function setStock(int $stock): static
+    public function setStock(?int $stock): static
     {
         $this->stock = $stock;
 

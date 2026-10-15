@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block body %}
+    <h1>{{ produit.nom }}</h1>
+
+    {% if produit.photo %}
+        <img src="{{ asset('uploads/produits/' ~ produit.photo) }}" alt="{{ produit.nom }}" width="400">
+    {% else %}
+        <p>{{ 'produit.sans_photo'|trans }}</p>
+    {% endif %}
+
+    {# nl2br conserve les retours à la ligne de la description (le texte reste échappé) #}
+    <p>{{ produit.description|nl2br }}</p>
+
+    <dl>
+        <dt>{{ 'produit.champ.prix'|trans }}</dt>
+        <dd>{{ produit.prix|format_currency('EUR') }}</dd>
+        <dt>{{ 'produit.champ.stock'|trans }}</dt>
+        <dd>{{ produit.stock }}</dd>
+    </dl>
+
+    {# Achat réservé aux utilisateurs connectés.
+       Le bouton n'est pas encore relié au panier : il le sera avec la partie panier. #}
+    {% if is_granted('IS_AUTHENTICATED') %}
+        <button type="button" class="ajouter-panier">{{ 'produit.action.ajouter_panier'|trans }}</button>
+    {% endif %}
+
+    {# Gestion du produit réservée aux administrateurs #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_produit_edit', {id: produit.id}) }}">{{ 'produit.action.modifier'|trans }}</a>
+
+        {# Suppression par POST avec jeton CSRF, jamais par un simple lien #}
+        <form method="post" action="{{ path('app_produit_delete', {id: produit.id}) }}"
+              onsubmit="return confirm('{{ 'produit.confirmer_suppression'|trans|e('js') }}');">
+            <input type="hidden" name="_token" value="{{ csrf_token('supprimer_produit_' ~ produit.id) }}">
+            <button type="submit">{{ 'produit.action.supprimer'|trans }}</button>
+        </form>
+    {% endif %}
+
+    <p><a href="{{ path('app_home') }}">{{ 'produit.retour'|trans }}</a></p>
+{% endblock %}
