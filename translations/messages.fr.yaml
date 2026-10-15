@@ -1,0 +1,34 @@
+# Textes du site en français (les textes stockés en base ne sont pas ici)
+site:
+    title: Boutique
+
+nav:
+    accueil: Accueil
+    connexion: Connexion
+    inscription: Inscription
+    deconnexion: Déconnexion
+
+form:
+    nom: Nom
+    prenom: Prénom
+    email: Email
+    password: Mot de passe
+
+auth:
+    login:
+        title: Connexion
+        submit: Se connecter
+        no_account: Pas encore de compte ? Inscrivez-vous
+    register:
+        title: Inscription
+        submit: Créer mon compte
+        has_account: Déjà un compte ? Connectez-vous
+
+flash:
+    register:
+        success: Votre compte a été créé. Vous pouvez maintenant vous connecter.
+        error: Le formulaire contient des erreurs. Vérifiez les champs en rouge.
+
+home:
+    title: Boutique
+    placeholder: La liste des produits arrivera ici.

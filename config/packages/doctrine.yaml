@@ -21,11 +21,9 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
 
-when@test:
-    doctrine:
-        dbal:
-            # "TEST_TOKEN" is typically set by ParaTest
-            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+# Pas de base séparée pour les tests : ils utilisent la base principale.
+# Chaque test tourne dans une transaction annulée à la fin (dama/doctrine-test-bundle),
+# donc rien n'est conservé en base.
 
 when@prod:
     doctrine:

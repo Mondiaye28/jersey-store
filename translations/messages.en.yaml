@@ -1,0 +1,34 @@
+# Site texts in English (texts stored in the database are not here)
+site:
+    title: Shop
+
+nav:
+    accueil: Home
+    connexion: Log in
+    inscription: Sign up
+    deconnexion: Log out
+
+form:
+    nom: Last name
+    prenom: First name
+    email: Email
+    password: Password
+
+auth:
+    login:
+        title: Log in
+        submit: Log in
+        no_account: No account yet? Sign up
+    register:
+        title: Sign up
+        submit: Create my account
+        has_account: Already have an account? Log in
+
+flash:
+    register:
+        success: Your account has been created. You can now log in.
+        error: The form contains errors. Check the fields in red.
+
+home:
+    title: Shop
+    placeholder: The product list will appear here.
