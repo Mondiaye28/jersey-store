@@ -42,7 +42,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Panier>
      */
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'utilisateur')]
+    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'utilisateur', orphanRemoval: true)]
     private Collection $paniers;
 
     public function __construct()
