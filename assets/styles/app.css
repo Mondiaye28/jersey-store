@@ -2,7 +2,6 @@
  * Jersey Store : boutique de maillots sur fond noir, ambiance stade un soir de match.
  * Idée directrice : le flocage du dos d'un maillot (Big Shoulders Display, très grasse et condensée)
  * pour les titres et les prix ; tout le reste reste sobre (Archivo, filets fins).
- * Un seul effet de mise en scène : le halo doré des projecteurs en haut de chaque page.
  * L'or des trophées est le seul accent : prix, bouton principal, lien de la page en cours, survol.
  */
 
@@ -45,33 +44,14 @@ html {
     background: var(--noir);
 }
 
-/*
- * Les projecteurs : un halo doré tombe du haut de la page, avec deux faisceaux plus pâles
- * venant des angles, comme les pylônes d'éclairage d'un stade. Peint derrière le contenu.
- */
 body {
-    position: relative;
     min-height: 100vh;
     margin: 0;
-    isolation: isolate;
     color: var(--craie);
     font-family: var(--texte);
     font-size: 1rem;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-}
-
-body::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto;
-    z-index: -1;
-    height: 42rem;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 60% 70% at 50% -15%, rgb(233 185 73 / 0.3), transparent 72%),
-        radial-gradient(ellipse 32% 65% at 0% -10%, rgb(255 244 214 / 0.13), transparent 70%),
-        radial-gradient(ellipse 32% 65% at 100% -10%, rgb(255 244 214 / 0.13), transparent 70%);
 }
 
 img {
@@ -542,7 +522,7 @@ form > input:not([type='hidden']) {
 
 /*
  * Pages formulaire (connexion, inscription, ajout et modification de produit) :
- * un bloc centré posé sur le noir, éclairé par le halo des projecteurs.
+ * un bloc centré posé sur le noir.
  */
 .page-formulaire {
     max-width: 34rem;
