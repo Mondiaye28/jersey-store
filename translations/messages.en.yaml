@@ -1,0 +1,148 @@
+# Site texts in English (texts stored in the database are not here)
+site:
+    title: Shop
+    marque: Jersey Store
+
+nav:
+    libelle: Main navigation
+    accueil: Home
+    connexion: Log in
+    inscription: Sign up
+    deconnexion: Log out
+    panier: My cart
+    compte: My account
+    super_admin: Super admin
+    ajouter_produit: Add a product
+
+form:
+    nom: Last name
+    prenom: First name
+    email: Email
+    password: Password
+
+auth:
+    login:
+        title: Log in
+        submit: Log in
+        no_account: No account yet? Sign up
+    register:
+        title: Sign up
+        submit: Create my account
+        has_account: Already have an account? Log in
+
+flash:
+    register:
+        success: Your account has been created. You can now log in.
+        error: The form contains errors. Check the fields in red.
+    produit:
+        cree: The product has been created.
+        modifie: The product has been updated.
+        supprime: The product has been deleted.
+        formulaire_invalide: The product was not saved. Check the fields in red.
+        upload_erreur: The photo could not be saved. Please try again.
+        csrf_invalide: The request has expired or is invalid. Please try again.
+        suppression_impossible: This product cannot be deleted because it is in a cart.
+    panier:
+        ajoute: The product has been added to your cart.
+        stock_insuffisant: Not enough stock to add this quantity to your cart.
+        quantite_invalide: The quantity must be at least 1.
+        csrf_invalide: The request has expired or is invalid. Please try again.
+        ligne_supprimee: The product has been removed from your cart.
+    achat:
+        reussi: Thank you for your purchase! Your order has been placed.
+        stock_insuffisant: "Purchase failed: a product in your cart no longer has enough stock. Your cart has not been changed."
+        panier_vide: Your cart is empty, there is nothing to buy.
+    compte:
+        modifie: Your profile has been updated.
+        formulaire_invalide: Your profile was not saved. Check the fields in red.
+
+home:
+    title: All jerseys
+    aucun_produit: No jerseys yet.
+    nombre: "{1} 1 jersey available|]1,Inf[ %count% jerseys available"
+
+produit:
+    champ:
+        nom: Name
+        description: Description
+        prix: Price
+        stock: Stock
+        photo: Photo
+        photo_aide: JPEG, PNG or WebP, 2 MB max. Leave empty to keep the current photo.
+    action:
+        ajouter: Add a product
+        modifier: Edit
+        supprimer: Delete
+        enregistrer: Save
+        ajouter_panier: Add to cart
+    titre:
+        nouveau: New product
+        modifier: Edit product
+    sans_photo: No photo for this product.
+    photo_actuelle: Current photo
+    confirmer_suppression: Permanently delete this product?
+    retour: Back to the catalogue
+    retour_fiche: Back to the product page
+
+panier:
+    titre: My cart
+    vide: Your cart is empty.
+    colonne:
+        produit: Product
+        quantite: Quantity
+        prix_unitaire: Unit price
+        montant: Amount
+    total: Total
+    action:
+        supprimer: Remove
+        acheter: Buy
+
+compte:
+    titre: My account
+    profil: My profile
+    nouveau_mot_de_passe: New password
+    mot_de_passe_aide: Leave empty to keep your current password (8 characters minimum).
+    enregistrer: Save
+    historique: My orders
+    aucune_commande: You have not placed any orders yet.
+
+commande:
+    numero: Order #%id%
+    date_valeur: "Order date: %date%"
+    colonne:
+        numero: Order
+        date: Date
+        montant: Total amount
+    retour: Back to my account
+
+super_admin:
+    titre: Super admin
+    paniers:
+        titre: Unpurchased carts
+        aucun: No carts in progress.
+        numero: Cart #%id%
+        proprietaire_valeur: "Owner: %nom% %prenom% (%email%)"
+    inscrits:
+        titre: Signed up today
+        aucun: No users signed up today.
+        colonne:
+            nom: Last name
+            prenom: First name
+            email: Email
+            date: Signed up
+
+langue:
+    fr: Français
+    en: English
+
+erreur:
+    retour_accueil: Back to the home page
+    404:
+        titre: Page not found
+        message: The page you are looking for does not exist or has been moved.
+    403:
+        titre: Access denied
+        message: You do not have permission to access this page.
+    generique:
+        titre: Something went wrong
+        message: "We could not process your request (error %code%). Please try again later."

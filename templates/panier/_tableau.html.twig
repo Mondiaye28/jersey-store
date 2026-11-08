@@ -1,0 +1,55 @@
+{#
+    Tableau des lignes d'un panier, partagé par la page Panier et le détail d'une commande.
+    Variables : panier, montants (indexés par id de ligne), total,
+    modifiable (true : colonne avec le bouton « Retirer » ; false : lecture seule).
+#}
+<table class="panier">
+    <thead>
+        <tr>
+            <th>{{ 'panier.colonne.produit'|trans }}</th>
+            <th>{{ 'panier.colonne.quantite'|trans }}</th>
+            <th>{{ 'panier.colonne.prix_unitaire'|trans }}</th>
+            <th>{{ 'panier.colonne.montant'|trans }}</th>
+            {% if modifiable %}<th></th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for ligne in panier.contenuPaniers %}
+            <tr class="ligne-panier">
+                <td>
+                    {# Vignette du maillot (ou son initiale, comme dans le catalogue) à côté du nom #}
+                    <a href="{{ path('app_produit_show', {id: ligne.produit.id}) }}" class="ligne-produit">
+                        <span class="vignette" aria-hidden="true">
+                            {% if ligne.produit.photo %}
+                                <img src="{{ asset('uploads/produits/' ~ ligne.produit.photo) }}" alt="" loading="lazy">
+                            {% else %}
+                                {{ ligne.produit.nom|first|upper }}
+                            {% endif %}
+                        </span>
+                        <span class="ligne-produit-nom">{{ ligne.produit.nom }}</span>
+                    </a>
+                </td>
+                <td class="quantite">{{ ligne.quantite }}</td>
+                <td>{{ ligne.produit.prix|format_currency('EUR') }}</td>
+                {# Montant calculé par PanierService : prix unitaire x quantité #}
+                <td class="montant">{{ montants[ligne.id]|format_currency('EUR') }}</td>
+                {% if modifiable %}
+                    <td>
+                        {# Suppression par POST avec jeton CSRF propre à la ligne #}
+                        <form method="post" action="{{ path('app_panier_ligne_supprimer', {id: ligne.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('supprimer_ligne_' ~ ligne.id) }}">
+                            <button type="submit" class="bouton-lien">{{ 'panier.action.supprimer'|trans }}</button>
+                        </form>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="3">{{ 'panier.total'|trans }}</th>
+            <td class="total">{{ total|format_currency('EUR') }}</td>
+            {% if modifiable %}<td></td>{% endif %}
+        </tr>
+    </tfoot>
+</table>

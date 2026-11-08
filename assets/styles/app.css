@@ -1,0 +1,1012 @@
+/*
+ * Jersey Store : boutique de maillots sur fond noir, ambiance stade un soir de match.
+ * Idée directrice : le flocage du dos d'un maillot (Big Shoulders Display, très grasse et condensée)
+ * pour les titres et les prix ; tout le reste reste sobre (Archivo, filets fins).
+ * Un seul effet de mise en scène : le halo doré des projecteurs en haut de chaque page.
+ * L'or des trophées est le seul accent : prix, bouton principal, lien de la page en cours, survol.
+ */
+
+:root {
+    --noir: #000;
+    --craie: #edebe4;          /* texte : le blanc des lignes du terrain */
+    --beton: #8c8b86;          /* texte secondaire */
+    --surface: #161616;        /* champs, visuels sans photo */
+    --surface-basse: #0c0c0c;  /* blocs posés sur le noir (formulaires, paniers) */
+    --filet: #2e2e2c;          /* séparateurs */
+    --or: #e9b949;             /* accent unique */
+    --or-lueur: rgb(233 185 73 / 0.28); /* halo des éléments survolés */
+    --succes: #6fcf97;
+    --erreur: #ff6b5b;
+
+    --rayon: 6px;              /* arrondi des visuels et des blocs */
+    --rayon-petit: 4px;        /* arrondi des boutons et des champs */
+    --transition: 180ms ease-out;
+
+    --flocage: 'Big Shoulders Display', 'Arial Narrow', sans-serif-condensed, Impact, sans-serif;
+    --texte: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --largeur: 75rem;
+    --gouttiere: clamp(1rem, 4vw, 2.5rem);
+
+    color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+html {
+    background: var(--noir);
+}
+
+/*
+ * Les projecteurs : un halo doré tombe du haut de la page, avec deux faisceaux plus pâles
+ * venant des angles, comme les pylônes d'éclairage d'un stade. Peint derrière le contenu.
+ */
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    isolation: isolate;
+    color: var(--craie);
+    font-family: var(--texte);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    height: 42rem;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 60% 70% at 50% -15%, rgb(233 185 73 / 0.3), transparent 72%),
+        radial-gradient(ellipse 32% 65% at 0% -10%, rgb(255 244 214 / 0.13), transparent 70%),
+        radial-gradient(ellipse 32% 65% at 100% -10%, rgb(255 244 214 / 0.13), transparent 70%);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration-color: var(--beton);
+    text-underline-offset: 0.2em;
+    transition: color var(--transition), text-decoration-color var(--transition);
+}
+
+a:hover {
+    color: var(--or);
+    text-decoration-color: var(--or);
+}
+
+:focus-visible {
+    outline: 2px solid var(--or);
+    outline-offset: 3px;
+}
+
+/* ---------- Titres : le flocage ---------- */
+
+h1,
+h2,
+h3 {
+    font-family: var(--flocage);
+    line-height: 0.95;
+    margin: 0 0 0.5em;
+}
+
+h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+}
+
+h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+p {
+    max-width: 65ch;
+}
+
+/* ---------- En-tête ---------- */
+
+/* Fond sur toute la largeur, contenu aligné sur la colonne de la page ; reste visible au défilement */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 2rem;
+    padding: 1.1rem max(var(--gouttiere), (100% - var(--largeur)) / 2 + var(--gouttiere));
+    border-bottom: 1px solid var(--filet);
+    background: rgb(0 0 0 / 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.marque {
+    font-family: var(--flocage);
+    font-size: 1.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.marque:hover {
+    color: var(--or);
+}
+
+.site-header nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-left: auto;
+    font-size: 0.9375rem;
+}
+
+.site-header nav a {
+    text-decoration: none;
+    color: var(--beton);
+}
+
+.site-header nav a:hover {
+    color: var(--craie);
+}
+
+/* Page en cours et langue active : en or, soulignées comme une ligne de terrain */
+.site-header nav a[aria-current] {
+    color: var(--or);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.45em;
+}
+
+.nav-utilisateur {
+    color: var(--craie);
+    font-weight: 600;
+}
+
+.langues {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--filet);
+}
+
+.langues a {
+    font-weight: 600;
+}
+
+/* ---------- Contenu ---------- */
+
+.page {
+    max-width: var(--largeur);
+    margin: 0 auto;
+    padding: 2.5rem var(--gouttiere) 5rem;
+}
+
+/* Titre sur toute la largeur, puis une ligne : nombre de maillots à gauche, action admin à droite */
+.entete-page {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--filet);
+}
+
+.entete-page h1 {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+.entete-page-info {
+    margin: 0;
+    color: var(--beton);
+}
+
+.entete-page .bouton {
+    grid-column: 2;
+}
+
+.vide {
+    color: var(--beton);
+}
+
+.fil-retour {
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--beton);
+}
+
+/* ---------- Messages flash ---------- */
+
+.flash {
+    max-width: 65ch;
+    margin: 0 0 1.5rem;
+    padding: 0.85rem 1.1rem;
+    border-left: 4px solid var(--beton);
+    border-radius: var(--rayon-petit);
+    background: var(--surface);
+}
+
+.flash-success {
+    border-left-color: var(--succes);
+    background: color-mix(in srgb, var(--succes) 9%, var(--surface-basse));
+}
+
+.flash-error {
+    border-left-color: var(--erreur);
+    background: color-mix(in srgb, var(--erreur) 9%, var(--surface-basse));
+}
+
+/* ---------- Catalogue : le mur de maillots ---------- */
+
+.catalogue {
+    display: grid;
+    /* 2 colonnes minimum sur téléphone, jusqu'à 4 sur grand écran */
+    grid-template-columns: repeat(auto-fill, minmax(min(40%, 15rem), 1fr));
+    gap: 3rem clamp(0.75rem, 2vw, 1.5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.maillot-lien {
+    display: block;
+    text-decoration: none;
+}
+
+.maillot-visuel {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background: var(--surface);
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Survol : le maillot se soulève, cerclé d'or, comme sous un projecteur */
+.maillot-lien:hover .maillot-visuel,
+.maillot-lien:focus-visible .maillot-visuel {
+    transform: translateY(-4px);
+    border-color: var(--or);
+    box-shadow: 0 12px 36px var(--or-lueur);
+}
+
+.maillot-lien:focus-visible {
+    outline: none;
+}
+
+.maillot-visuel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sans photo : l'initiale en grand, comme un numéro floqué au dos */
+.maillot-sans-photo {
+    font-family: var(--flocage);
+    font-size: clamp(7rem, 18vw, 11rem);
+    font-weight: 900;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px #4a4945;
+    user-select: none;
+}
+
+.maillot-nom {
+    display: block;
+    margin-top: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.maillot-lien:hover .maillot-nom,
+.maillot-lien:focus-visible .maillot-nom {
+    color: var(--craie);
+    text-decoration: underline;
+    text-decoration-color: var(--or);
+}
+
+.maillot-prix {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: var(--flocage);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--or);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Fiche produit ---------- */
+
+.fiche {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.5rem clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+}
+
+/* La photo dans un cadre sombre, éclairé par le haut */
+.fiche-visuel {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background:
+        radial-gradient(ellipse 80% 55% at 50% 0%, rgb(233 185 73 / 0.12), transparent 75%),
+        var(--surface);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.6);
+    position: relative;
+}
+
+.fiche-visuel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fiche-sans-photo {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--beton);
+}
+
+.fiche-infos h1 {
+    font-size: clamp(2.75rem, 6vw, 5rem);
+}
+
+/* Prix et stock côte à côte, chaque libellé au-dessus de son chiffre, alignés sur la ligne de base */
+.fiche-chiffres {
+    display: flex;
+    align-items: flex-end;
+    gap: 3rem;
+    margin: 0 0 1.75rem;
+}
+
+.fiche-chiffres dt {
+    margin-bottom: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--beton);
+}
+
+.fiche-stock {
+    font-family: var(--flocage);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.fiche-chiffres dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.fiche-prix {
+    font-family: var(--flocage);
+    font-size: clamp(3.5rem, 6vw, 4.75rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--or);
+}
+
+.fiche-description {
+    margin: 0 0 2rem;
+    color: var(--craie);
+}
+
+.fiche-achat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--filet);
+}
+
+.fiche-achat .champ-quantite input {
+    width: 6.5rem;
+}
+
+.fiche-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--filet);
+}
+
+.fiche-admin form {
+    margin: 0;
+}
+
+/* ---------- Boutons ---------- */
+
+/* Bouton secondaire : contour fin, qui passe à l'or au survol */
+button,
+.bouton {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    border: 1px solid var(--beton);
+    border-radius: var(--rayon-petit);
+    background: transparent;
+    color: var(--craie);
+    font: 600 0.9375rem/1.2 var(--texte);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition);
+}
+
+button:hover,
+.bouton:hover {
+    border-color: var(--or);
+    color: var(--or);
+}
+
+/* Bouton principal : plein or, qui s'illumine au survol */
+.bouton-principal {
+    border-color: var(--or);
+    background: var(--or);
+    color: var(--noir);
+}
+
+.bouton-principal:hover {
+    background: #f3c95f;
+    color: var(--noir);
+    box-shadow: 0 0 0 4px rgb(233 185 73 / 0.18), 0 8px 28px var(--or-lueur);
+}
+
+.bouton-danger {
+    border-color: var(--erreur);
+    color: var(--erreur);
+}
+
+.bouton-danger:hover {
+    border-color: var(--erreur);
+    background: var(--erreur);
+    color: var(--noir);
+}
+
+/* Action secondaire dans un tableau : texte simple */
+.bouton-lien {
+    padding: 0;
+    border: 0;
+    color: var(--beton);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.bouton-lien:hover {
+    background: none;
+    color: var(--erreur);
+    box-shadow: none;
+}
+
+/* ---------- Formulaires (thème de formulaire par défaut de Symfony) ---------- */
+
+form {
+    max-width: 32rem;
+}
+
+.fiche-achat,
+.fiche-admin form,
+td form {
+    max-width: none;
+}
+
+form > div,
+.champ {
+    margin-bottom: 1.25rem;
+}
+
+/* Formulaire de connexion : libellés et champs directement dans le form */
+form > input:not([type='hidden']) {
+    margin-bottom: 1.25rem;
+}
+
+/*
+ * Pages formulaire (connexion, inscription, ajout et modification de produit) :
+ * un bloc centré posé sur le noir, éclairé par le halo des projecteurs.
+ */
+.page-formulaire {
+    max-width: 34rem;
+    margin: clamp(0rem, 4vw, 2.5rem) auto 0;
+    padding: clamp(1.5rem, 5vw, 2.75rem);
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background: rgb(12 12 12 / 0.85);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.55);
+}
+
+.page-formulaire h1 {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+}
+
+.page-formulaire form {
+    max-width: none;
+}
+
+.page-formulaire form .bouton-principal {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding-block: 0.95rem;
+}
+
+.lien-secondaire {
+    margin: 1.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--filet);
+    font-size: 0.9375rem;
+    color: var(--beton);
+}
+
+/* Photo actuelle d'un produit, au-dessus du formulaire de modification */
+.photo-actuelle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1.75rem;
+}
+
+.photo-actuelle img {
+    width: 5.5rem;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon-petit);
+}
+
+.photo-actuelle figcaption {
+    order: 2;
+    font-size: 0.9375rem;
+    color: var(--beton);
+}
+
+.fiche-achat .champ {
+    margin-bottom: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+input:not([type='hidden']),
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon-petit);
+    background: var(--surface);
+    color: var(--craie);
+    font: inherit;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input:not([type='hidden']):hover,
+textarea:hover,
+select:hover {
+    border-color: #4a4945;
+}
+
+/* Champ actif : contour or et léger halo */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: none;
+    border-color: var(--or);
+    box-shadow: 0 0 0 3px rgb(233 185 73 / 0.2);
+}
+
+textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+input[type='file'] {
+    padding: 0.6rem;
+}
+
+.help-text {
+    margin: 0.4rem 0 0;
+    font-size: 0.875rem;
+    color: var(--beton);
+}
+
+/* Erreurs de validation rendues par form_row() */
+form ul {
+    margin: 0 0 0.4rem;
+    padding: 0;
+    list-style: none;
+    color: var(--erreur);
+    font-size: 0.875rem;
+}
+
+form > div:has(ul) input {
+    border-color: var(--erreur);
+}
+
+/* Champ et bouton côte à côte : même hauteur */
+.fiche-achat input,
+.fiche-achat .bouton {
+    min-height: 3.1rem;
+}
+
+/* ---------- Tableaux : panier, commandes, inscrits ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+    padding: 0.9rem 1rem 0.9rem 0;
+    border-bottom: 1px solid var(--filet);
+    text-align: left;
+    vertical-align: baseline;
+}
+
+th:last-child,
+td:last-child {
+    padding-right: 0;
+}
+
+thead th {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--beton);
+    border-bottom-color: #4a4945;
+}
+
+/* Ligne survolée mise en évidence, pour suivre une ligne d'un coup d'œil */
+tbody tr {
+    transition: background-color var(--transition);
+}
+
+tbody tr:hover {
+    background: rgb(255 255 255 / 0.035);
+}
+
+tbody td:first-child,
+thead th:first-child,
+tfoot th:first-child {
+    padding-left: 0.75rem;
+}
+
+tbody td:last-child,
+thead th:last-child,
+tfoot td:last-child {
+    padding-right: 0.75rem;
+}
+
+/* Les montants s'alignent à droite pour se comparer d'un coup d'œil */
+.panier td:nth-child(2),
+.panier th:nth-child(2),
+.panier td:nth-child(3),
+.panier th:nth-child(3),
+.panier .montant,
+.panier th:nth-child(4),
+.panier .total,
+.commandes .montant,
+.commandes th:last-child {
+    text-align: right;
+}
+
+.panier td:last-child:not(.montant):not(.total) {
+    text-align: right;
+}
+
+.panier tfoot th,
+.panier tfoot td {
+    border-bottom: 0;
+    padding-top: 1.25rem;
+}
+
+.panier tfoot th {
+    font-family: var(--flocage);
+    font-size: 1.75rem;
+    font-weight: 800;
+    text-align: right;
+}
+
+.panier .total {
+    font-family: var(--flocage);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--or);
+    white-space: nowrap;
+}
+
+.panier .montant {
+    white-space: nowrap;
+}
+
+/* Avec les vignettes, les cellules du panier se centrent verticalement */
+.panier tbody td {
+    vertical-align: middle;
+}
+
+/* Produit : la vignette du maillot puis son nom */
+.ligne-produit {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+}
+
+.ligne-produit:hover .ligne-produit-nom {
+    text-decoration: underline;
+}
+
+.vignette {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 3.75rem;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon-petit);
+    background: var(--surface);
+    font-family: var(--flocage);
+    font-size: 2rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px #4a4945;
+    transition: border-color var(--transition);
+}
+
+.vignette img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ligne-produit:hover .vignette {
+    border-color: var(--or);
+}
+
+.ligne-produit-nom {
+    font-weight: 600;
+}
+
+/* Le bouton d'achat se place sous le total, à droite */
+form:has(> .acheter) {
+    max-width: none;
+    text-align: right;
+}
+
+.acheter {
+    padding: 1rem 2.5rem;
+    font-size: 1.0625rem;
+}
+
+/* ---------- Mon compte, commandes, super-admin ---------- */
+
+.date-commande {
+    color: var(--beton);
+}
+
+/* Mon compte : le formulaire de profil dans un bloc, comme les autres formulaires */
+section form {
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background: var(--surface-basse);
+}
+
+section td form {
+    padding: 0;
+    border: 0;
+    background: none;
+}
+
+/* Super admin : chaque panier en cours dans son propre bloc */
+.panier-en-cours {
+    margin-bottom: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--filet);
+    border-radius: var(--rayon);
+    background: var(--surface-basse);
+}
+
+.panier-en-cours h3 {
+    margin-bottom: 0.25rem;
+}
+
+.panier-en-cours table {
+    margin-bottom: 0;
+}
+
+.proprietaire {
+    margin: 0 0 1rem;
+    color: var(--beton);
+}
+
+/* ---------- Pages d'erreur ---------- */
+
+/* Le code d'erreur en très grand, en contour or, comme un numéro floqué éclairé */
+.code-erreur {
+    margin: 0;
+    font-family: var(--flocage);
+    font-size: clamp(8rem, 28vw, 16rem);
+    font-weight: 900;
+    line-height: 0.85;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--or);
+    text-shadow: 0 0 60px var(--or-lueur);
+    user-select: none;
+}
+
+.message-erreur {
+    font-size: 1.125rem;
+    color: var(--beton);
+}
+
+/* ---------- Petits écrans ---------- */
+
+@media (max-width: 52rem) {
+    /* Sur téléphone la navigation tient sur deux lignes : l'en-tête ne reste pas collé en haut */
+    .site-header {
+        position: static;
+    }
+
+    .site-header nav {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .langues {
+        padding-left: 0;
+        border-left: 0;
+        margin-left: auto;
+    }
+
+    .fiche {
+        grid-template-columns: 1fr;
+    }
+
+    .catalogue {
+        row-gap: 2rem;
+    }
+
+    .maillot-prix {
+        font-size: 1.6rem;
+    }
+
+    .entete-page {
+        grid-template-columns: 1fr;
+    }
+
+    .entete-page .bouton {
+        grid-column: 1;
+        justify-self: start;
+    }
+
+    /* Les autres tableaux défilent horizontalement plutôt que de déborder */
+    table:not(.panier) {
+        display: block;
+        overflow-x: auto;
+    }
+
+    /*
+     * Panier et commandes : chaque ligne devient un bloc compact.
+     *   Nom du produit
+     *   2 × 89,99 €               179,98 €
+     *   Retirer
+     */
+    .panier thead {
+        display: none;
+    }
+
+    .panier tbody tr,
+    .panier tfoot tr {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: baseline;
+        column-gap: 0.4rem;
+        border-bottom: 1px solid var(--filet);
+        padding: 0.9rem 0;
+    }
+
+    .panier tbody td,
+    .panier tfoot th,
+    .panier tfoot td {
+        padding: 0;
+        border: 0;
+        text-align: left;
+    }
+
+    .panier tbody td:first-child {
+        grid-column: 1 / -1;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+    }
+
+    .panier tbody .quantite::after {
+        content: ' ×';
+        color: var(--beton);
+    }
+
+    .panier tbody td:nth-child(3) {
+        color: var(--beton);
+        text-align: left;
+    }
+
+    .panier tbody td.montant {
+        text-align: right;
+    }
+
+    .panier tbody td:nth-child(5) {
+        grid-column: 1 / -1;
+        margin-top: 0.4rem;
+        text-align: left;
+    }
+
+    .panier tfoot tr {
+        grid-template-columns: 1fr auto;
+        border-bottom: 0;
+    }
+
+    .panier tfoot td:empty {
+        display: none;
+    }
+
+    .panier tfoot th {
+        text-align: left;
+    }
+
+    .acheter {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

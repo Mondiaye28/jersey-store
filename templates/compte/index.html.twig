@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'compte.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'compte.titre'|trans }}</h1>
+
+    <section>
+        <h2>{{ 'compte.profil'|trans }}</h2>
+
+        {# Profil uniquement : aucun champ de date dans ce formulaire #}
+        {{ form_start(profilForm) }}
+            {{ form_row(profilForm.nom) }}
+            {{ form_row(profilForm.prenom) }}
+            {{ form_row(profilForm.email) }}
+            {{ form_row(profilForm.plainPassword) }}
+            <button type="submit" class="bouton bouton-principal">{{ 'compte.enregistrer'|trans }}</button>
+        {{ form_end(profilForm) }}
+    </section>
+
+    <section>
+        <h2>{{ 'compte.historique'|trans }}</h2>
+
+        {# Uniquement les paniers achetés (etat = true), les plus récents d'abord #}
+        {% if commandes is empty %}
+            <p>{{ 'compte.aucune_commande'|trans }}</p>
+        {% else %}
+            <table class="commandes">
+                <thead>
+                    <tr>
+                        <th>{{ 'commande.colonne.numero'|trans }}</th>
+                        <th>{{ 'commande.colonne.date'|trans }}</th>
+                        <th>{{ 'commande.colonne.montant'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for commande in commandes %}
+                        <tr class="commande">
+                            <td class="numero">
+                                <a href="{{ path('app_commande_show', {id: commande.id}) }}">{{ 'commande.numero'|trans({'%id%': commande.id}) }}</a>
+                            </td>
+                            {# Date enregistrée en UTC, affichée à l'heure de la boutique #}
+                            <td class="date">{{ commande.dateAchat ? commande.dateAchat|format_datetime('short', 'short', timezone: 'Europe/Paris') : '' }}</td>
+                            {# Total calculé par PanierService à partir des lignes : prix x quantité #}
+                            <td class="montant">{{ totaux[commande.id]|format_currency('EUR') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+{% endblock %}

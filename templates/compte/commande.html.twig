@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'commande.numero'|trans({'%id%': commande.id}) }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'commande.numero'|trans({'%id%': commande.id}) }}</h1>
+
+    <p class="date-commande">
+        {# Date enregistrée en UTC, affichée à l'heure de la boutique #}
+        {{ 'commande.date_valeur'|trans({'%date%': commande.dateAchat ? commande.dateAchat|format_datetime('long', 'short', timezone: 'Europe/Paris') : ''}) }}
+    </p>
+
+    {# Même tableau que la page Panier, en lecture seule : ni achat ni suppression #}
+    {{ include('panier/_tableau.html.twig', {panier: commande, modifiable: false}) }}
+
+    <p><a href="{{ path('app_compte') }}">{{ 'commande.retour'|trans }}</a></p>
+{% endblock %}

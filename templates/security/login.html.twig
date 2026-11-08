@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'auth.login.title'|trans }}{% endblock %}
+
+{% block body %}
+    {# Bloc centré : titre, formulaire et lien secondaire #}
+    <div class="page-formulaire">
+        <h1>{{ 'auth.login.title'|trans }}</h1>
+
+        {# Erreur de connexion renvoyée par Symfony (identifiants incorrects, etc.) #}
+        {% if error %}
+            <div class="flash flash-error" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form method="post" action="{{ path('app_login') }}">
+            <label for="username">{{ 'form.email'|trans }}</label>
+            <input type="email" id="username" name="_username" value="{{ last_username }}" required autocomplete="email">
+
+            <label for="password">{{ 'form.password'|trans }}</label>
+            <input type="password" id="password" name="_password" required autocomplete="current-password">
+
+            {#
+                Jeton anti-CSRF attendu par le firewall. La protection est « stateless » :
+                data-controller charge le contrôleur Stimulus csrf-protection, qui envoie le cookie
+                de double soumission avec le formulaire (sans lui : « Jeton CSRF invalide »).
+            #}
+            <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit" class="bouton bouton-principal">{{ 'auth.login.submit'|trans }}</button>
+        </form>
+
+        <p class="lien-secondaire"><a href="{{ path('app_register') }}">{{ 'auth.login.no_account'|trans }}</a></p>
+    </div>
+{% endblock %}

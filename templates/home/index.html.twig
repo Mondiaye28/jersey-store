@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'home.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="entete-page">
+        <h1 class="titre-floque">{{ 'home.title'|trans }}</h1>
+        {% if produits is not empty %}
+            <p class="entete-page-info">{{ 'home.nombre'|trans({'%count%': produits|length}) }}</p>
+        {% endif %}
+
+        {# Bouton de création réservé aux administrateurs #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_produit_new') }}" class="bouton bouton-principal">{{ 'produit.action.ajouter'|trans }}</a>
+        {% endif %}
+    </div>
+
+    {% if produits is empty %}
+        <p class="vide">{{ 'home.aucun_produit'|trans }}</p>
+    {% else %}
+        {# Mur de maillots : chaque produit mène à sa fiche #}
+        <ul class="catalogue">
+            {% for produit in produits %}
+                <li class="maillot">
+                    <a href="{{ path('app_produit_show', {id: produit.id}) }}" class="maillot-lien">
+                        <span class="maillot-visuel">
+                            {% if produit.photo %}
+                                <img src="{{ asset('uploads/produits/' ~ produit.photo) }}" alt="{{ produit.nom }}" loading="lazy">
+                            {% else %}
+                                {# Sans photo : l'initiale du produit, floquée comme un numéro de maillot #}
+                                <span class="maillot-sans-photo" aria-hidden="true">{{ produit.nom|first|upper }}</span>
+                            {% endif %}
+                        </span>
+                        <span class="maillot-nom">{{ produit.nom }}</span>
+                    </a>
+                    <span class="maillot-prix">{{ produit.prix|format_currency('EUR') }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

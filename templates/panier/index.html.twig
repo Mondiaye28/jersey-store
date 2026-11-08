@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'panier.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'panier.titre'|trans }}</h1>
+
+    {# Seul le panier en cours de l'utilisateur connecté est affiché #}
+    {% if panier is null or panier.contenuPaniers is empty %}
+        <p>{{ 'panier.vide'|trans }}</p>
+    {% else %}
+        {{ include('panier/_tableau.html.twig', {modifiable: true}) }}
+
+        {# Achat (paiement fictif) par POST avec jeton CSRF #}
+        <form method="post" action="{{ path('app_panier_acheter') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('acheter_panier') }}">
+            <button type="submit" class="bouton bouton-principal acheter">{{ 'panier.action.acheter'|trans }}</button>
+        </form>
+    {% endif %}
+
+    <p><a href="{{ path('app_home') }}">{{ 'produit.retour'|trans }}</a></p>
+{% endblock %}

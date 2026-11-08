@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{# Page 404 personnalisée, utilisée quand le débogage est désactivé (prod) #}
+{% block title %}{{ 'erreur.404.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <p class="code-erreur" aria-hidden="true">404</p>
+    <h1>{{ 'erreur.404.titre'|trans }}</h1>
+    <p class="message-erreur">{{ 'erreur.404.message'|trans }}</p>
+    <p><a href="{{ path('app_home') }}">{{ 'erreur.retour_accueil'|trans }}</a></p>
+{% endblock %}

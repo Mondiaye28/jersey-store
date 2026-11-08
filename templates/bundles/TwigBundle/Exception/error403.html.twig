@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{# Page 403 personnalisée : connecté, mais sans le rôle requis #}
+{% block title %}{{ 'erreur.403.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <p class="code-erreur" aria-hidden="true">403</p>
+    <h1>{{ 'erreur.403.titre'|trans }}</h1>
+    <p class="message-erreur">{{ 'erreur.403.message'|trans }}</p>
+    <p><a href="{{ path('app_home') }}">{{ 'erreur.retour_accueil'|trans }}</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{#
+    Page d'erreur générique (500, 405, ...). status_code est fourni par TwigBundle.
+    Aucun détail technique n'est affiché : il reste dans les logs.
+#}
+{% block title %}{{ 'erreur.generique.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <p class="code-erreur" aria-hidden="true">{{ status_code }}</p>
+    <h1>{{ 'erreur.generique.titre'|trans }}</h1>
+    <p class="message-erreur">{{ 'erreur.generique.message'|trans({'%code%': status_code}) }}</p>
+    <p><a href="{{ path('app_home') }}">{{ 'erreur.retour_accueil'|trans }}</a></p>
+{% endblock %}

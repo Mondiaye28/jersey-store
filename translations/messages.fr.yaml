@@ -1,0 +1,148 @@
+# Textes du site en français (les textes stockés en base ne sont pas ici)
+site:
+    title: Boutique
+    marque: Jersey Store
+
+nav:
+    libelle: Navigation principale
+    accueil: Accueil
+    connexion: Connexion
+    inscription: Inscription
+    deconnexion: Déconnexion
+    panier: Mon panier
+    compte: Mon compte
+    super_admin: Super-admin
+    ajouter_produit: Ajouter un produit
+
+form:
+    nom: Nom
+    prenom: Prénom
+    email: Email
+    password: Mot de passe
+
+auth:
+    login:
+        title: Connexion
+        submit: Se connecter
+        no_account: Pas encore de compte ? Inscrivez-vous
+    register:
+        title: Inscription
+        submit: Créer mon compte
+        has_account: Déjà un compte ? Connectez-vous
+
+flash:
+    register:
+        success: Votre compte a été créé. Vous pouvez maintenant vous connecter.
+        error: Le formulaire contient des erreurs. Vérifiez les champs en rouge.
+    produit:
+        cree: Le produit a été créé.
+        modifie: Le produit a été modifié.
+        supprime: Le produit a été supprimé.
+        formulaire_invalide: Le produit n'a pas été enregistré. Vérifiez les champs en rouge.
+        upload_erreur: La photo n'a pas pu être enregistrée. Réessayez.
+        csrf_invalide: La demande a expiré ou n'est pas valide. Réessayez.
+        suppression_impossible: Ce produit ne peut pas être supprimé car il figure dans un panier.
+    panier:
+        ajoute: Le produit a été ajouté à votre panier.
+        stock_insuffisant: Stock insuffisant pour ajouter cette quantité à votre panier.
+        quantite_invalide: La quantité doit être d'au moins 1.
+        csrf_invalide: La demande a expiré ou n'est pas valide. Réessayez.
+        ligne_supprimee: Le produit a été retiré de votre panier.
+    achat:
+        reussi: Merci pour votre achat ! Votre commande a été enregistrée.
+        stock_insuffisant: "Achat impossible : le stock d'un produit de votre panier est devenu insuffisant. Votre panier n'a pas été modifié."
+        panier_vide: Votre panier est vide, il n'y a rien à acheter.
+    compte:
+        modifie: Votre profil a été mis à jour.
+        formulaire_invalide: Votre profil n'a pas été enregistré. Vérifiez les champs en rouge.
+
+home:
+    title: Tous les maillots
+    aucun_produit: Aucun maillot pour le moment.
+    nombre: "{1} 1 maillot disponible|]1,Inf[ %count% maillots disponibles"
+
+produit:
+    champ:
+        nom: Nom
+        description: Description
+        prix: Prix
+        stock: Stock
+        photo: Photo
+        photo_aide: JPEG, PNG ou WebP, 2 Mo maximum. Laissez vide pour garder la photo actuelle.
+    action:
+        ajouter: Ajouter un produit
+        modifier: Modifier
+        supprimer: Supprimer
+        enregistrer: Enregistrer
+        ajouter_panier: Ajouter au panier
+    titre:
+        nouveau: Nouveau produit
+        modifier: Modifier le produit
+    sans_photo: Pas de photo pour ce produit.
+    photo_actuelle: Photo actuelle
+    confirmer_suppression: Supprimer définitivement ce produit ?
+    retour: Retour au catalogue
+    retour_fiche: Retour à la fiche produit
+
+panier:
+    titre: Mon panier
+    vide: Votre panier est vide.
+    colonne:
+        produit: Produit
+        quantite: Quantité
+        prix_unitaire: Prix unitaire
+        montant: Montant
+    total: Total
+    action:
+        supprimer: Retirer
+        acheter: Acheter
+
+compte:
+    titre: Mon compte
+    profil: Mon profil
+    nouveau_mot_de_passe: Nouveau mot de passe
+    mot_de_passe_aide: Laissez vide pour conserver votre mot de passe actuel (8 caractères minimum).
+    enregistrer: Enregistrer
+    historique: Mes commandes
+    aucune_commande: Vous n'avez encore passé aucune commande.
+
+commande:
+    numero: Commande n° %id%
+    date_valeur: "Date de la commande : %date%"
+    colonne:
+        numero: Commande
+        date: Date
+        montant: Montant total
+    retour: Retour à mon compte
+
+super_admin:
+    titre: Super-admin
+    paniers:
+        titre: Paniers non achetés
+        aucun: Aucun panier en cours.
+        numero: Panier n° %id%
+        proprietaire_valeur: "Propriétaire : %nom% %prenom% (%email%)"
+    inscrits:
+        titre: Inscrits aujourd'hui
+        aucun: Aucun utilisateur inscrit aujourd'hui.
+        colonne:
+            nom: Nom
+            prenom: Prénom
+            email: Email
+            date: Inscription
+
+langue:
+    fr: Français
+    en: English
+
+erreur:
+    retour_accueil: Retour à l'accueil
+    404:
+        titre: Page introuvable
+        message: La page que vous cherchez n'existe pas ou a été déplacée.
+    403:
+        titre: Accès refusé
+        message: Vous n'avez pas les droits nécessaires pour accéder à cette page.
+    generique:
+        titre: Une erreur est survenue
+        message: "Nous n'avons pas pu traiter votre demande (erreur %code%). Réessayez plus tard."

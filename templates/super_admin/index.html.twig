@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'super_admin.titre'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'super_admin.titre'|trans }}</h1>
+
+    <section class="paniers-en-cours">
+        <h2>{{ 'super_admin.paniers.titre'|trans }}</h2>
+
+        {# Paniers etat = false non vides, de tous les utilisateurs #}
+        {% for panier in paniers %}
+            <article class="panier-en-cours" id="panier-{{ panier.id }}">
+                <h3>{{ 'super_admin.paniers.numero'|trans({'%id%': panier.id}) }}</h3>
+                <p class="proprietaire">
+                    {{ 'super_admin.paniers.proprietaire_valeur'|trans({
+                        '%nom%': panier.utilisateur.nom,
+                        '%prenom%': panier.utilisateur.prenom,
+                        '%email%': panier.utilisateur.email,
+                    }) }}
+                </p>
+                {# Même tableau que la page Panier, en lecture seule #}
+                {{ include('panier/_tableau.html.twig', {panier: panier, total: totaux[panier.id], modifiable: false}) }}
+            </article>
+        {% else %}
+            <p>{{ 'super_admin.paniers.aucun'|trans }}</p>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>{{ 'super_admin.inscrits.titre'|trans }}</h2>
+
+        {# Du plus récent au plus ancien ; heure affichée dans le fuseau de la boutique #}
+        {% if inscrits is empty %}
+            <p>{{ 'super_admin.inscrits.aucun'|trans }}</p>
+        {% else %}
+            <table class="inscrits">
+                <thead>
+                    <tr>
+                        <th>{{ 'super_admin.inscrits.colonne.nom'|trans }}</th>
+                        <th>{{ 'super_admin.inscrits.colonne.prenom'|trans }}</th>
+                        <th>{{ 'super_admin.inscrits.colonne.email'|trans }}</th>
+                        <th>{{ 'super_admin.inscrits.colonne.date'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inscrit in inscrits %}
+                        <tr class="inscrit">
+                            <td>{{ inscrit.nom }}</td>
+                            <td>{{ inscrit.prenom }}</td>
+                            <td class="email">{{ inscrit.email }}</td>
+                            <td>{{ inscrit.dateInscription|format_datetime('short', 'medium', timezone: 'Europe/Paris') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </section>
+{% endblock %}

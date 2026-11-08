@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'produit.titre.modifier'|trans }}{% endblock %}
+
+{% block body %}
+    {# Bloc centré : titre, formulaire et lien secondaire #}
+    <div class="page-formulaire">
+        <h1>{{ 'produit.titre.modifier'|trans }}</h1>
+
+        {# Photo actuelle : elle est conservée si aucun nouveau fichier n'est envoyé #}
+        {% if produit.photo %}
+            <figure class="photo-actuelle">
+                <figcaption>{{ 'produit.photo_actuelle'|trans }}</figcaption>
+                <img src="{{ asset('uploads/produits/' ~ produit.photo) }}" alt="{{ produit.nom }}" width="200">
+            </figure>
+        {% endif %}
+
+        {{ include('produit/_form.html.twig') }}
+
+        <p class="lien-secondaire"><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ 'produit.retour_fiche'|trans }}</a></p>
+    </div>
+{% endblock %}
